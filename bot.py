@@ -13,7 +13,7 @@ Bot = Client(
     api_id = int(os.environ["API_ID"]),
     api_hash = os.environ["API_HASH"]
 )
-voice = piper.load("fa_model/fa_model.onnx")
+voice = piper.load("fa_model/gyro_model.onnx")
 
 
 START_TXT = """
