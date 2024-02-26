@@ -46,7 +46,7 @@ async def t2s(bot, m):
     input = m.text
     run_process = subprocess.run("./ezafeh", stdout=subprocess.PIPE, stderr=subprocess.PIPE, input=input.encode())
     out = run_process.stdout.decode()
-    corrected = out.replace('Enter text:"', '')
+    corrected = out
     output_1 = "output.wav"
     with wave.open(output_1, "wb") as wav_file:
         voice.synthesize(str(corrected), wav_file)
