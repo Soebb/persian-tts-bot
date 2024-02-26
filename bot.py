@@ -3,7 +3,7 @@ from piper.voice import PiperVoice as piper #Backbone of text to speech
 from dotenv import load_dotenv
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from virastar import PersianEditor
+import subprocess
 
 load_dotenv()
 
@@ -42,9 +42,11 @@ async def start(bot, update):
 
 @Bot.on_message(filters.private & filters.text)
 async def t2s(bot, m):
-    input = m.text
     msg = await m.reply("Processing..")
-    corrected = PersianEditor(input)
+    input = m.text
+    run_process = subprocess.run("./ezafeh", stdout=subprocess.PIPE, stderr=subprocess.PIPE, input=input.encode())
+    out = run_process.stdout.decode()
+    corrected = out.replace('Enter text:"', '')
     output_1 = "output.wav"
     with wave.open(output_1, "wb") as wav_file:
         voice.synthesize(str(corrected), wav_file)
