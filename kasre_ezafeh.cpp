@@ -11,7 +11,7 @@ int main()
     std::cout << "Enter text:";
     std::string input;
     std::getline(std::cin, input);
-    std::string normlized_text = normalizer.normalize(input);
+    std::string normlized_text = normalizer.normalize(input.replace(0, 11, ""));
     std::string  processed_sentences = "";
     for (auto &sentence: sent_tokenize(normlized_text)) {
         std::vector<std::string> words = word_tokenize(sentence);
