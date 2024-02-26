@@ -43,7 +43,7 @@ async def start(bot, update):
 @Bot.on_message(filters.private & filters.text)
 async def t2s(bot, m):
     msg = await m.reply("Processing..")
-    input = m.text
+    input = m.text.replace('  ', ' ')
     run_process = subprocess.run("./ezafeh", stdout=subprocess.PIPE, stderr=subprocess.PIPE, input=input.encode())
     out = run_process.stdout.decode()
     corrected = out
