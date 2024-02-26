@@ -1,4 +1,4 @@
-import os, wave
+import os, wave, re
 from piper.voice import PiperVoice as piper #Backbone of text to speech
 from dotenv import load_dotenv
 from pyrogram import Client, filters
@@ -43,7 +43,7 @@ async def start(bot, update):
 @Bot.on_message(filters.private & filters.text)
 async def t2s(bot, m):
     msg = await m.reply("Processing..")
-    input = m.text.replace('  ', ' ')
+    input = re.sub('\s{2,}', ' ', m.text)
     run_process = subprocess.run("./ezafeh", stdout=subprocess.PIPE, stderr=subprocess.PIPE, input=input.encode())
     out = run_process.stdout.decode()
     corrected = out
