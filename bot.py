@@ -1,5 +1,5 @@
 import os, wave
-from piper.voice import PiperVoice as piper #Backbone of text to speech
+from piper import PiperVoice as piper #Backbone of text to speech
 from dotenv import load_dotenv
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
