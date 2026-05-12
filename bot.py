@@ -47,7 +47,7 @@ async def t2s(bot, m):
     corrected = preprocess_text(input)
     output_1 = "output.wav"
     with wave.open(output_1, "wb") as wav_file:
-        voice.synthesize(str(corrected), wav_file)
+        voice.synthesize_wav(str(corrected), wav_file)
     await bot.send_audio(chat_id=m.chat.id, audio=output_1)
 
     await msg.delete()
