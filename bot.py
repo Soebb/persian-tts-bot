@@ -52,7 +52,7 @@ async def t2s(bot, m):
     await m.reply("by /omni or /piper ?")
 
 @Bot.on_message(filters.command(["piper"]))
-async def piperr(bot, update):
+async def piperr(bot, m):
     msg = await m.reply("Processing..")
     voice = piper.load("fa_model/gyro_model.onnx")
     wav_filename = "output.wav"
