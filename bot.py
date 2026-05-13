@@ -66,6 +66,11 @@ async def piperr(bot, update):
 @Bot.on_message(filters.command(["omni"]))
 async def omnii(bot, m):
     msg = await m.reply("Processing..")
+    model = OmniVoice.from_pretrained(
+        "k2-fsa/OmniVoice",
+        device_map="cpu",
+        dtype=torch.float32
+    )
     audio = model.generate(text=text, language="fa")
     wav_filename = "output.wav"
     sf.write(wav_filename, audio[0], 24000)
