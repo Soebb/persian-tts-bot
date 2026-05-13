@@ -56,7 +56,7 @@ async def piperr(bot, m):
     msg = await m.reply("Processing..")
     voice = piper.load("fa_model/gyro_model.onnx")
     wav_filename = "output.wav"
-    with wave.open(output_1, "wb") as wav_file:
+    with wave.open(wav_filename, "wb") as wav_file:
         voice.synthesize_wav(str(text), wav_file)
     mp3_filename = "generated.mp3"
     wav2mp3(wav_filename, mp3_filename)
