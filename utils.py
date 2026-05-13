@@ -1,6 +1,7 @@
 import hazm
 import typing
 import subprocess
+import os
 
 normalizer = hazm.Normalizer()
 sent_tokenizer = hazm.SentenceTokenizer()
@@ -39,3 +40,4 @@ def wav2mp3(wav_filename, mp3_filename):
         "-codec:a", "libmp3lame", "-qscale:a", "2",
         mp3_filename
     ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    os.remove(wav_filename)
