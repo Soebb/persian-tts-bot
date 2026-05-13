@@ -3,7 +3,10 @@ from piper import PiperVoice as piper #Backbone of text to speech
 from dotenv import load_dotenv
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from utils import preprocess_text
+from utils import preprocess_text, wav2mp3
+from omnivoice import OmniVoice
+import soundfile as sf
+import torch
 
 load_dotenv()
 
@@ -32,10 +35,10 @@ START_BTN = InlineKeyboardMarkup(
 
 @Bot.on_message(filters.command(["start"]))
 async def start(bot, update):
-    text = START_TXT.format(update.from_user.mention)
+    txt = START_TXT.format(update.from_user.mention)
     reply_markup = START_BTN
     await update.reply_text(
-        text=text,
+        text=txt,
         disable_web_page_preview=True,
         reply_markup=reply_markup
 )
@@ -49,10 +52,12 @@ async def t2s(bot, m):
     await m.reply("by /whisper or /piper ?")
 
 @Bot.on_message(filters.command(["piper"]))
-async def start(bot, update):
+async def piperr(bot, update):
+    voice = piper.load("fa_model/gyro_model.onnx")
+
     output_1 = "output.wav"
     with wave.open(output_1, "wb") as wav_file:
-        voice.synthesize_wav(str(corrected), wav_file)
+        voice.synthesize_wav(str(text), wav_file)
     await bot.send_audio(chat_id=m.chat.id, audio=output_1)
 
     await msg.delete()
