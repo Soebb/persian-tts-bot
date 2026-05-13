@@ -49,19 +49,29 @@ async def t2s(bot, m):
     global text
     input = m.text.replace('\n', ' ').replace('  ', ' ')
     text = preprocess_text(input)
-    await m.reply("by /whisper or /piper ?")
+    await m.reply("by /omni or /piper ?")
 
 @Bot.on_message(filters.command(["piper"]))
 async def piperr(bot, update):
+    msg = await m.reply("Processing..")
     voice = piper.load("fa_model/gyro_model.onnx")
-
-    output_1 = "output.wav"
+    wav_filename = "output.wav"
     with wave.open(output_1, "wb") as wav_file:
         voice.synthesize_wav(str(text), wav_file)
-    await bot.send_audio(chat_id=m.chat.id, audio=output_1)
-
+    mp3_filename = "generated.mp3"
+    wav2mp3(wav_filename, mp3_filename)
+    await bot.send_audio(chat_id=m.chat.id, audio=mp3_filename)
     await msg.delete()
-    os.remove(output_1)
 
+@Bot.on_message(filters.command(["omni"]))
+async def omnii(bot, m):
+    msg = await m.reply("Processing..")
+    audio = model.generate(text=text, language="fa")
+    wav_filename = "output.wav"
+    sf.write(wav_filename, audio[0], 24000)
+    mp3_filename = "generated.mp3"
+    wav2mp3(wav_filename, mp3_filename)
+    await bot.send_audio(chat_id=m.chat.id, audio=mp3_filename)
+    await msg.delete()
 
 Bot.run()
