@@ -1,5 +1,7 @@
 pyrogram
 tgcrypto
 python-dotenv
+static-ffmpeg
+omnivoice
 hazm
 piper-tts
