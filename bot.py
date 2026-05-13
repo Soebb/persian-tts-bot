@@ -13,8 +13,9 @@ Bot = Client(
     api_id = int(os.environ["API_ID"]),
     api_hash = os.environ["API_HASH"]
 )
-voice = piper.load("fa_model/gyro_model.onnx")
 
+# global variable
+text = "یک متن جدید به ربات بفرستید"
 
 START_TXT = """
 Hi {}, I'm Persian TTS Bot.
@@ -42,9 +43,13 @@ async def start(bot, update):
 
 @Bot.on_message(filters.private & filters.text)
 async def t2s(bot, m):
-    msg = await m.reply("Processing..")
+    global text
     input = m.text.replace('\n', ' ').replace('  ', ' ')
-    corrected = preprocess_text(input)
+    text = preprocess_text(input)
+    await m.reply("by /whisper or /piper ?")
+
+@Bot.on_message(filters.command(["piper"]))
+async def start(bot, update):
     output_1 = "output.wav"
     with wave.open(output_1, "wb") as wav_file:
         voice.synthesize_wav(str(corrected), wav_file)
