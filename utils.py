@@ -33,7 +33,7 @@ def fix_words(words: typing.List[str]) -> typing.List[str]:
 
     return fixed_words
 
-def wav2mp3(wav_filename, mp3_filename)
+def wav2mp3(wav_filename, mp3_filename):
     subprocess.run([
         "static_ffmpeg", "-y", "-i", wav_filename,
         "-codec:a", "libmp3lame", "-qscale:a", "2",
